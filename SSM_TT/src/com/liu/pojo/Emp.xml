@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.pojo.Emp">
+	
+	<select id="findallemp" resultMap="empinfo">
+		select empno,ename,job,mgr,hiredate,sal,comm,deptno from emp
+	</select>
+	
+	<resultMap type="com.liu.pojo.Emp" id="empinfo">
+		<id property="empno" column="empno" />
+		<result property="ename" column="ename" />
+		<result property="job" column="job" />
+		<result property="mgr" column="mgr" />
+		<result property="hiredate" column="hiredate" />
+		<result property="sal" column="sal" />
+		<result property="comm" column="comm" />
+		<association property="dept" column="deptno" select="com.liu.pojo.Dept.findDeptByDeptno"></association>
+	</resultMap>
+	
+	
+	<select id="countEname" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(ename) from emp where ename=#{ename} 
+	</select>
+	
+</mapper>
